@@ -7,15 +7,35 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { UsersComponent } from './users/users.component';
 import { RolesComponent } from './roles/roles.component';
+import { UsersService } from './services/users.service';
 
-import { Angular2IdamModule } from '@pa-util/angular2-idam';
+//idam-------------------------------------------------------------------------------------------------------------
+import { Angular2IdamModule, AuthGuard } from '@pa-util/angular2-idam';
 import { GLOBALS } from './idam/global';
 import { AuthInterceptorService } from './idam/interceptor';
-import { TridentModule } from '@pa-util/trident-rolemanagement';
+
+//trident----------------------------------------------------------------------------------------------------------
+import { TridentModule, AppRoles } from '@pa-util/trident-rolemanagement';
+//Import the resolvers for roles and users
+import { AppRolesResolver } from '@pa-util/trident-rolemanagement/resolvers/app-roles-resolver.service';
+import { AppUserRolesResolver } from '@pa-util/trident-rolemanagement/resolvers/app-user-roles-resolver.service';
+//Import the guards for roles and users
+import { RoleEditorGuard } from '@pa-util/trident-rolemanagement/guards/role-editor.guard';
+import { UserRoleEditorGuard } from '@pa-util/trident-rolemanagement/guards/user-role-editor.guard'
 
 const appRoutes: Routes = [
-  { path: 'users', component: UsersComponent },
-  { path: 'roles', component: RolesComponent }
+  {
+    path: 'roles',
+    component: RolesComponent,
+    resolve: { resolveRoles: AppRolesResolver },
+    canActivate: [AuthGuard, RoleEditorGuard]
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    //resolve: { resolvedUsers: AppUserRolesResolver, resolvedRoles: AppRolesResolver },
+    //canActivate: [ AuthGuard, UserRoleEditorGuard ]
+  }
 ];
 
 @NgModule({
@@ -43,6 +63,7 @@ const appRoutes: Routes = [
   providers: [
     { provide: GLOBALS, multi: false, useValue: {} }, //INCLUDE THIS IF YOU ARE CREATING AN INJECTION TOKEN (shown below)
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }, //INCLUDE THIS IF YOU ARE USING AN INTERCEPTOR (angular version 4.3 and above, shown below)
+    { provide: UsersService, useClass: UsersService }
   ],
   bootstrap: [AppComponent]
 })

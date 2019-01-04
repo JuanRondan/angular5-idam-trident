@@ -2,7 +2,6 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { IdamAuthenticationService } from '@pa-util/angular2-idam';
 import { GLOBALS, Global } from './idam/global';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
