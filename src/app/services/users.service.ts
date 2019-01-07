@@ -11,6 +11,6 @@ export class UsersService {
   constructor( private http: HttpClient ) { }
 
   getUsers(): Observable<string> {
-    return this.http.get<string>( `${ this.userApiUrl }` );
+    return this.http.get( `${ this.userApiUrl }`, {responseType: 'text'} );
   }
 }
