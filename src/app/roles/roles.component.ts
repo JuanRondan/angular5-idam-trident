@@ -10,12 +10,12 @@ import { AppRoles } from '@pa-util/trident-rolemanagement/types/app-roles';
 })
 export class RolesComponent implements OnInit {
 
-  resolvedroles: AppRoles;
+  resolvedRoles: AppRoles;
 
   constructor( private route: ActivatedRoute ) {}
 
   ngOnInit() {
-    this.resolvedroles = this.route.snapshot.data.resolvedroles;
+    this.resolvedRoles = this.route.snapshot.data.resolvedRoles;
   }
 
 }
