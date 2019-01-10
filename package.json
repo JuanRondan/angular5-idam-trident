@@ -4,11 +4,10 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "ng-start": "ng serve",
+    "ng-build": "ng build --prod",
+    "start": "node index.js",
+    "compile": "tsc"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +23,7 @@
     "@pa-util/angular2-idam": "^1.5.3",
     "@pa-util/trident-rolemanagement": "^0.1.93",
     "core-js": "^2.4.1",
+    "express": "^4.16.4",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
